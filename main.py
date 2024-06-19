@@ -1,5 +1,8 @@
 import pygame
 import sys
+import random
+
+
 
 pygame.init()
 WIDTH, HEIGHT = 800, 600
@@ -33,30 +36,68 @@ class Ball:
 
 	def checkCollision(self,other):
 		if self.x == other.x and self.y == other.y:
-			print("Collision Detected")
+			pass # TO DO: NEED TO FIGURE OUT HOW TO CALCULATE THE DIRECTION IT WAS ORIGINALLY HEADING IN. 
 
-ballOne = Ball(30,29, 20, red, -5,5)
-ballTwo = Ball(202, 222, 20, green, 5,-5)
 
-clock = pygame.time.Clock()
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-    
-    ballOne.move()
-    ballTwo.move()
-    
-    ballOne.checkCollision(ballTwo)
-    
-    screen.fill(white)
-    
-    ballOne.draw(screen)
-    ballTwo.draw(screen)
-    
-    pygame.display.flip()
-    clock.tick(10000000000)
-    
-pygame.quit()
-sys.exit()
+def main():
+	ballOne = Ball(30,29, 20, red, -5,5)
+	ballTwo = Ball(202, 222, 20, green, 5,-5)
+
+	clock = pygame.time.Clock()
+	running = True
+	while running:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				running = False
+		
+		ballOne.move()
+		ballTwo.move()
+		
+		ballOne.checkCollision(ballTwo)
+		
+		screen.fill(white)
+		
+		ballOne.draw(screen)
+		ballTwo.draw(screen)
+		
+		pygame.display.flip()
+		clock.tick(100)
+		
+	pygame.quit()
+	sys.exit()
+
+
+def experimental():
+	balls = []
+
+	for i in range (1,10):
+		ball = Ball(random.randint(0,400),random.randint(0,400), 20, red, -5,5)
+		balls.append(ball)
+		
+	clock = pygame.time.Clock()
+	running = True
+ 
+	while running:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				running = False
+		
+		for ball in balls:
+			ball.move()
+
+		for Balli in balls:
+			for Ballj in balls: 
+				Balli.checkCollision(Ballj)
+		
+		screen.fill(white)
+		
+		for ball in balls:
+			ball.draw(screen)
+		
+		pygame.display.flip()
+		clock.tick(100)
+		
+	pygame.quit()
+	sys.exit()
+ 
+experimental()
